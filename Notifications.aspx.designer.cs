@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EduTrack.Parent
+namespace EduTrack
 {
 
 
@@ -15,30 +15,57 @@ namespace EduTrack.Parent
     {
 
         /// <summary>
-        /// lblUnread control.
+        /// lblNotifMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUnread;
+        protected global::System.Web.UI.WebControls.Label lblNotifMsg;
 
         /// <summary>
-        /// btnMarkAllRead control.
+        /// pnlSendNotif control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMarkAllRead;
+        protected global::System.Web.UI.WebControls.Panel pnlSendNotif;
 
         /// <summary>
-        /// rptNotifications control.
+        /// ddlNotifTarget control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptNotifications;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNotifTarget;
+
+        /// <summary>
+        /// txtNotText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNotText;
+
+        /// <summary>
+        /// btnSend control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSend;
+
+        /// <summary>
+        /// gvNotifs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvNotifs;
     }
 }

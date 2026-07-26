@@ -1,83 +1,54 @@
-﻿<%@ Page Title="Notifications" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Notifications.aspx.cs" Inherits="EduTrack.Parent.Notifications" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <style>
-        :root { --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); --primary-color: #667eea; --secondary-color: #764ba2; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; }
-        .card { border: none; box-shadow: 0 8px 32px rgba(0,0,0,0.08); border-radius: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); transition: transform 0.3s ease; }
-        .card:hover { transform: translateY(-5px); }
-        .btn-gradient { background: var(--primary-gradient); color: white; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; transition: all 0.3s; }
-        .btn-gradient:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); color: white; }
-        .btn-outline-gradient { background: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; transition: all 0.3s; }
-        .btn-outline-gradient:hover { background: var(--primary-gradient); color: white; border-color: transparent; transform: translateY(-3px); }
-        .table-modern { border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-        .table-modern thead { background: var(--primary-gradient); color: white; }
-        .table-modern tbody tr:hover { background-color: #f0f4ff; }
-        .empty-state { text-align: center; padding: 3rem; color: #6c757d; }
-        .empty-state i { font-size: 4rem; color: #dee2e6; margin-bottom: 1rem; }
-        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-        .toast-message { padding: 1rem 1.5rem; border-radius: 10px; color: white; margin-bottom: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); animation: slideInRight 0.5s ease; display: flex; align-items: center; gap: 10px; }
-        .toast-message.success { background: #28a745; }
-        .toast-message.error { background: #dc3545; }
-        .toast-message.warning { background: #ffc107; color: #333; }
-        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-        .notification-item { border-left: 4px solid var(--primary-color); padding: 0.8rem 1rem; margin-bottom: 0.8rem; background: #f8f9fa; border-radius: 8px; transition: all 0.3s; }
-        .notification-item:hover { background: #f0f4ff; }
-        .notification-item .text { font-weight: 500; }
-        .notification-item .date { font-size: 0.8rem; color: #6c757d; }
-        .notification-item.unread { border-left-color: #ffc107; background: #fff8e1; }
-        .notification-item.unread .text { font-weight: 600; }
-    </style>
+﻿<%@ Page Title="Notifications" Language="C#" AutoEventWireup="true" CodeBehind="Notifications.aspx.cs" MasterPageFile="~/Site.Master" Inherits="EduTrack.Notifications" %>
+<asp:Content ID="NotificationsContent" ContentPlaceHolderID="MainContent" runat="server">
+<style>
+body {background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);}
+.notif-container {max-width: 920px; margin: 52px auto;}
+.auth-card {border: none; border-radius: 20px; background: #fff; box-shadow: 0 10px 32px rgba(0,0,0,0.15);}
+.notif-header {background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:1.2rem 2rem;}
+.notif-header h2 {margin: 0; font-weight:700;}
+.notif-body {padding:2.1rem 1.4rem;}
+.btn-auth {background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);font-weight:700;border:none;border-radius:12px;}
+.btn-auth:hover{background:linear-gradient(135deg,#764ba2 0%,#667eea 100%);}
+.table th,.table td{vertical-align:middle;}
+</style>
 
-    <div class="container py-4">
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
-            <h2><i class="bi bi-bell me-2"></i>Notifications</h2>
-            <div>
-                <span class="badge bg-primary fs-6 me-2"><asp:Label ID="lblUnread" runat="server" Text="0" /> unread</span>
-                <asp:Button ID="btnMarkAllRead" runat="server" Text="Mark All as Read" CssClass="btn btn-gradient" OnClick="btnMarkAllRead_Click" />
+<div class="notif-container auth-card">
+    <div class="notif-header">
+        <h2>Notifications</h2>
+        <span class="fs-6">Announcements &amp; alerts sent to you</span>
+    </div>
+    <div class="notif-body">
+        <asp:Label ID="lblNotifMsg" runat="server" CssClass="alert alert-info" Visible="false"/>
+        <asp:Panel ID="pnlSendNotif" runat="server" Visible="false">
+            <div class="row mb-3">
+                <div class="col-md-2">
+                    <asp:DropDownList ID="ddlNotifTarget" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="All">All Users</asp:ListItem>
+                        <asp:ListItem Value="Teachers">Teachers</asp:ListItem>
+                        <asp:ListItem Value="Students">Students</asp:ListItem>
+                        <asp:ListItem Value="Parents">Parents</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-8">
+                    <asp:TextBox ID="txtNotText" runat="server" CssClass="form-control" placeholder="Notification text" MaxLength="255"/>
+                </div>
+                <div class="col-md-2 text-end">
+                    <asp:Button ID="btnSend" runat="server" Text="Send Notification" CssClass="btn btn-auth w-100" OnClick="btnSend_Click"/>
+                </div>
             </div>
-        </div>
-
-        <div class="card p-3">
-            <asp:Repeater ID="rptNotifications" runat="server">
-                <ItemTemplate>
-                    <div class="notification-item <%# GetUnreadClass(Eval("IsRead")) %>">
-                        <div class="d-flex justify-content-between">
-                            <span class="text"><%# Eval("NotificationText") %></span>
-                            <span class="date"><%# Eval("NotificationDate", "{0:yyyy-MM-dd HH:mm}") %></span>
-                        </div>
-                        <div class="mt-1">
-                            <asp:LinkButton ID="lnkMarkRead" runat="server" CommandName="MarkRead" 
-                                CommandArgument='<%# Eval("NotificationID") %>' 
-                                CssClass="btn btn-sm btn-outline-gradient me-2" 
-                                Visible='<%# IsUnread(Eval("IsRead")) %>'>
-                                <i class="bi bi-check2"></i> Mark Read
-                            </asp:LinkButton>
-                            <asp:LinkButton ID="lnkDelete" runat="server" CommandName="Delete" 
-                                CommandArgument='<%# Eval("NotificationID") %>' 
-                                CssClass="btn btn-sm btn-secondary" 
-                                OnClientClick="return confirm('Delete this notification?')">
-                                <i class="bi bi-trash"></i>
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-                </ItemTemplate>
-                <EmptyDataTemplate>
-                    <div class="empty-state"><i class="bi bi-bell"></i><p>No notifications.</p></div>
-                </EmptyDataTemplate>
-            </asp:Repeater>
+        </asp:Panel>
+        <h5 class="mb-2">Your Notifications</h5>
+        <asp:GridView ID="gvNotifs" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered"
+            DataKeyNames="NotificationID">
+            <Columns>
+                <asp:BoundField DataField="NotificationText" HeaderText="Message"/>
+                <asp:BoundField DataField="NotificationDate" HeaderText="Date" DataFormatString="{0:yyyy-MM-dd HH:mm}"/>
+                <asp:BoundField DataField="ReadStatus" HeaderText="Status"/>
+            </Columns>
+        </asp:GridView>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="Messages.aspx" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back</a>
         </div>
     </div>
-
-    <script>
-        function showToast(message, type) {
-            var container = document.getElementById('toastContainer');
-            if (!container) { container = document.createElement('div'); container.id = 'toastContainer'; container.className = 'toast-container'; document.body.appendChild(container); }
-            var toast = document.createElement('div');
-            toast.className = 'toast-message ' + type;
-            toast.innerHTML = '<i class="bi bi-' + (type === 'success' ? 'check-circle' : type === 'error' ? 'x-circle' : 'exclamation-triangle') + '"></i> ' + message;
-            container.appendChild(toast);
-            setTimeout(function () { toast.style.animation = 'slideOutRight 0.5s ease'; setTimeout(function () { toast.remove(); }, 500); }, 4000);
-        }
-    </script>
+</div>
 </asp:Content>

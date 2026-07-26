@@ -1,0 +1,504 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="EduTrack.SiteMaster" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title runat="server" id="pageTitle">EduTrack</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <style>
+        /* ---------- ROOT VARIABLES ---------- */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 0px;
+            --topbar-height: 70px;
+            --sidebar-bg: #101828;
+            --sidebar-header: #cbd5e1;
+            --sidebar-link: #f8fafc;
+            --sidebar-link-hover-bg: #1d4ed8;
+            --sidebar-link-hover-text: #ffffff;
+            --sidebar-link-active-bg: #2563eb;
+            --sidebar-link-active-text: #ffffff;
+            --sidebar-border: rgba(255,255,255,0.08);
+            --transition-speed: 0.3s;
+        }
+        html, body { min-height: 100%; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9fbff; margin: 0; }
+
+        /* ---------- TOP NAVBAR ---------- */
+        .top-navbar {
+            background: var(--primary-gradient);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: var(--topbar-height);
+        }
+        .top-navbar .navbar-brand,
+        .top-navbar .nav-link {
+            color: rgba(255,255,255,0.95) !important;
+            transition: color 0.2s ease;
+        }
+        .top-navbar .navbar-brand {
+            font-weight: 700;
+            font-size: 1.45rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .top-navbar .nav-link:hover,
+        .top-navbar .nav-link:focus { 
+            color: #fff !important; 
+            text-decoration: none;
+        }
+        .top-navbar .dropdown-menu {
+            background: rgba(255,255,255,0.98);
+            border: 1px solid rgba(102,126,234,0.2);
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .top-navbar .dropdown-item {
+            color: #333;
+            transition: all 0.2s ease;
+        }
+        .top-navbar .dropdown-item:hover {
+            background: rgba(102,126,234,0.1);
+            color: #667eea;
+        }
+        .top-navbar .dropdown-item i {
+            margin-right: 8px;
+            color: #667eea;
+        }
+        .logo-navbar { height: 40px; width: auto; object-fit: contain; border-radius: 6px; }
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; background: #fff; }
+
+        /* ---------- SIDEBAR ---------- */
+        .sidebar-custom {
+            position: fixed;
+            top: var(--topbar-height);
+            left: 0;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--topbar-height));
+            background: var(--sidebar-bg);
+            color: var(--sidebar-link);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.12);
+            overflow-y: auto;
+            z-index: 1020;
+            border-right: 1px solid var(--sidebar-border);
+            transition: width var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+        /* Collapsed state */
+        .sidebar-custom.collapsed {
+            width: var(--sidebar-collapsed-width);
+            overflow: hidden;
+            border-right: none;
+            transform: translateX(-100%);
+        }
+        .sidebar-custom .sidebar-header {
+            color: var(--sidebar-header);
+            font-weight: 700;
+            letter-spacing: .08em;
+            font-size: .78rem;
+            border-bottom: 1px solid var(--sidebar-border);
+            padding: 12px 16px;
+        }
+        .sidebar-custom .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--sidebar-border);
+            margin-bottom: 8px;
+        }
+        .sidebar-custom .sidebar-brand .logo-sidebar {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .sidebar-custom .sidebar-brand .brand-text {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        .sidebar-custom .nav-link {
+            color: var(--sidebar-link) !important;
+            padding: .85rem 1rem;
+            transition: background .2s ease, color .2s ease, transform .15s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .sidebar-custom .nav-link i { margin-right: .55rem; color: #93c5fd; }
+        .sidebar-custom .nav-link:hover,
+        .sidebar-custom .nav-link:focus {
+            color: var(--sidebar-link-hover-text) !important;
+            background: var(--sidebar-link-hover-bg);
+        }
+        .sidebar-custom .nav-link:hover i,
+        .sidebar-custom .nav-link:focus i { color: #ffffff; }
+        .sidebar-custom .nav-link.active {
+            background: var(--sidebar-link-active-bg);
+            color: var(--sidebar-link-active-text);
+            border-left: 3px solid #ffd700;
+            padding-left: calc(1rem - 3px);
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        .content-wrapper { padding-top: calc(var(--topbar-height) + 5px); }
+        .main-content {
+            padding: 2rem 1.3rem 0 1.3rem;
+            transition: margin-left var(--transition-speed) ease;
+        }
+        .main-content.with-sidebar {
+            margin-left: var(--sidebar-width);
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        .sidebar-toggle-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 1.6rem;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .sidebar-toggle-btn:hover { color: #fff; }
+
+        @media (max-width: 991.98px) {
+            .sidebar-custom { transform: translateX(-100%); }
+            .sidebar-custom:not(.collapsed) { transform: translateX(0); }
+            .main-content.with-sidebar { margin-left: 0; }
+        }
+        @media (max-width: 576px) {
+            .logo-navbar { height: 36px; }
+            .top-navbar .navbar-brand { font-size: 1.1rem; }
+        }
+
+        /* ---------- FOOTER ---------- */
+        .footer-custom {
+            background: var(--primary-gradient);
+            color: #fff;
+            padding-top: 2.5rem;
+            padding-bottom: 1.3rem;
+            margin-top: 3.5rem;
+        }
+        .footer-custom h5, .footer-custom h6 { color: #ffd700; font-weight: bold; }
+        .footer-custom ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+        .footer-custom li { margin-bottom: .45rem; }
+        .footer-custom a { color: #ffd700; text-decoration: none; transition: color 0.2s ease; }
+        .footer-custom a:hover { color: #fff; }
+        .footer-logo { height: 60px; width: auto; object-fit: contain; border-radius: 4px; margin-right: 6px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.18); padding-top: .9rem; margin-top: 1.2rem; }
+        .social-icons a { font-size: 1.35rem; margin-right: 8px; color: #ffd700; text-decoration: none; transition: color 0.2s ease; }
+        .social-icons a:hover { color: #fff; }
+
+        .badge-notification {
+            position: absolute;
+            top: 2px;
+            right: -2px;
+            background: #dc3545;
+            color: #fff;
+            border-radius: 999px;
+            min-width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            font-size: .7rem;
+            padding: 0 4px;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager" runat="server" EnableCdn="true">
+            <Scripts>
+                <asp:ScriptReference Name="jquery" />
+            </Scripts>
+        </asp:ScriptManager>
+
+        <!-- ============================================================ -->
+        <!-- TOP NAVBAR                                                 -->
+        <!-- ============================================================ -->
+        <nav class="navbar navbar-expand-lg top-navbar fixed-top">
+            <div class="container-fluid">
+                <!-- SIDEBAR TOGGLE BUTTON -->
+                <button id="sidebarToggle" class="sidebar-toggle-btn me-2" type="button" aria-label="Toggle sidebar">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- BRAND -->
+                <asp:HyperLink ID="hlBrand" runat="server" CssClass="navbar-brand" NavigateUrl="~/Default.aspx" ToolTip="EduTrack Home">
+                    <asp:Image runat="server" ImageUrl="~/Image/DVT-0185.jpg" CssClass="logo-navbar" AlternateText="EduTrack Logo" />
+                    <span>EduTrack</span>
+                </asp:HyperLink>
+
+                <!-- TOGGLER (mobile) -->
+                <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- NAVBAR COLLAPSE -->
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <!-- LEFT: Public links -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlHome" runat="server" CssClass="nav-link" NavigateUrl="~/Default.aspx" ToolTip="Go to Home">
+                                <i class="bi bi-house"></i> Home
+                            </asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlAbout" runat="server" CssClass="nav-link" NavigateUrl="~/Pages/About.aspx" ToolTip="About EduTrack">
+                                <i class="bi bi-info-circle"></i> About
+                            </asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlFAQ" runat="server" CssClass="nav-link" NavigateUrl="~/Pages/FAQ.aspx" ToolTip="Frequently Asked Questions">
+                                <i class="bi bi-patch-question"></i> FAQ
+                            </asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlHelp" runat="server" CssClass="nav-link" NavigateUrl="~/Pages/Help.aspx" ToolTip="Get Help">
+                                <i class="bi bi-life-preserver"></i> Help
+                            </asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlDocumentation" runat="server" CssClass="nav-link" NavigateUrl="~/Pages/Documentation.aspx" ToolTip="View Documentation">
+                                <i class="bi bi-journal-bookmark"></i> Documentation
+                            </asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlContact" runat="server" CssClass="nav-link" NavigateUrl="~/Pages/Contact.aspx" ToolTip="Contact Us">
+                                <i class="bi bi-envelope"></i> Contact
+                            </asp:HyperLink>
+                        </li>
+                    </ul>
+
+                    <!-- RIGHT: Authentication / User menu -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <!-- Anonymous User Navigation -->
+                        <asp:PlaceHolder ID="phAnonNav" runat="server">
+                            <li class="nav-item">
+                                <asp:HyperLink ID="hlLogin" runat="server" CssClass="nav-link" NavigateUrl="~/Auth/Login.aspx" ToolTip="Sign In">
+                                    <i class="bi bi-box-arrow-in-right"></i> Login
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item">
+                                <asp:HyperLink ID="hlRegister" runat="server" CssClass="nav-link" NavigateUrl="~/Auth/Register.aspx" ToolTip="Create Account">
+                                    <i class="bi bi-person-plus"></i> Register
+                                </asp:HyperLink>
+                            </li>
+                        </asp:PlaceHolder>
+
+                        <!-- Authenticated User Navigation -->
+                        <asp:PlaceHolder ID="phUserNav" runat="server" Visible="false">
+                            <li class="nav-item me-2 position-relative">
+                                <asp:HyperLink ID="hlNotifications" runat="server" CssClass="nav-link position-relative" NavigateUrl="~/Notifications.aspx" ToolTip="Notifications">
+                                    <i class="bi bi-bell-fill"></i>
+                                    <span id="notifBadge" runat="server" class="badge-notification">0</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarUserMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                                    <asp:Image ID="imgProfile" runat="server" CssClass="user-avatar me-2" AlternateText="Profile" />
+                                    <asp:Label ID="lblUserMenuText" runat="server"></asp:Label>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserMenu">
+                                    <li>
+                                        <asp:HyperLink ID="hlProfile" runat="server" CssClass="dropdown-item" NavigateUrl="~/Auth/UserProfile.aspx">
+                                            <i class="bi bi-person"></i> My Profile
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink ID="hlChangePassword" runat="server" CssClass="dropdown-item" NavigateUrl="~/Auth/ChangePassword.aspx">
+                                            <i class="bi bi-key"></i> Change Password
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink ID="hlMessages" runat="server" CssClass="dropdown-item" NavigateUrl="~/Messages.aspx">
+                                            <i class="bi bi-chat-dots"></i> Messages
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <asp:HyperLink ID="hlLogout" runat="server" CssClass="dropdown-item text-danger" NavigateUrl="~/Auth/Logout.aspx">
+                                            <i class="bi bi-box-arrow-right"></i> Logout
+                                        </asp:HyperLink>
+                                    </li>
+                                </ul>
+                            </li>
+                        </asp:PlaceHolder>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT AREA                                           -->
+        <!-- ============================================================ -->
+        <div class="container-fluid content-wrapper">
+            <div class="row">
+                <!-- SIDEBAR (collapsible, dynamic content) -->
+                <aside id="sidebar" class="sidebar-custom collapsed" runat="server">
+                    <asp:PlaceHolder ID="phSidebarContent" runat="server" />
+                </aside>
+
+                <!-- MAIN CONTENT -->
+                <main id="mainContentArea" runat="server" class="col-12 main-content with-sidebar">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                </main>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- FOOTER                                                       -->
+        <!-- ============================================================ -->
+        <footer class="footer-custom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <h5 class="fw-bold mb-2">
+                            <asp:Image runat="server" ImageUrl="~/Image/DVT-0185.jpg" CssClass="footer-logo" AlternateText="EduTrack" />
+                            EduTrack
+                        </h5>
+                        <p>
+                            <em>
+                                "Bridging the gap between ICT theory and practical problem solving in SHS. EduTrack empowers project-based learning, boosts engagement, and transforms performance—so every student becomes a confident digital innovator."
+                            </em>
+                        </p>
+                        <p class="mb-1"><small><i class="bi bi-tag"></i> Version 1.0</small></p>
+                        <p class="mb-0"><small>© <%: DateTime.Now.Year %> EduTrack. All Rights Reserved.</small></p>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h6>Navigation</h6>
+                        <ul>
+                            <li><asp:HyperLink ID="hlFooterHome" runat="server" NavigateUrl="~/Default.aspx"><i class="bi bi-house"></i> Home</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterAbout" runat="server" NavigateUrl="~/Pages/About.aspx"><i class="bi bi-info-circle"></i> About</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterFAQ" runat="server" NavigateUrl="~/Pages/FAQ.aspx"><i class="bi bi-patch-question"></i> FAQ</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterHelp" runat="server" NavigateUrl="~/Pages/Help.aspx"><i class="bi bi-life-preserver"></i> Help</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterDocumentation" runat="server" NavigateUrl="~/Pages/Documentation.aspx"><i class="bi bi-journal-bookmark"></i> Documentation</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterContact" runat="server" NavigateUrl="~/Pages/Contact.aspx"><i class="bi bi-envelope"></i> Contact</asp:HyperLink></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h6>Account</h6>
+                        <ul>
+                            <li><asp:HyperLink ID="hlFooterLogin" runat="server" NavigateUrl="~/Auth/Login.aspx"><i class="bi bi-box-arrow-in-right"></i> Login</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterRegister" runat="server" NavigateUrl="~/Auth/Register.aspx"><i class="bi bi-person-plus"></i> Register</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterChangePassword" runat="server" NavigateUrl="~/Auth/ChangePassword.aspx"><i class="bi bi-key"></i> Change Password</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterProfile" runat="server" NavigateUrl="~/Auth/UserProfile.aspx"><i class="bi bi-person"></i> Profile</asp:HyperLink></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h6>Features</h6>
+                        <ul>
+                            <li><asp:HyperLink ID="hlFooterProjects" runat="server" NavigateUrl="~/Pages/Features.aspx"><i class="bi bi-kanban"></i> Projects</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterAssignments" runat="server" NavigateUrl="~/Pages/Features.aspx"><i class="bi bi-journal-check"></i> Assignments</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterTests" runat="server" NavigateUrl="~/Pages/Features.aspx"><i class="bi bi-ui-checks"></i> Tests</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterResources" runat="server" NavigateUrl="~/Pages/Features.aspx"><i class="bi bi-folder"></i> Resources</asp:HyperLink></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h6>Support</h6>
+                        <ul>
+                            <li><asp:HyperLink ID="hlFooterSupportHelp" runat="server" NavigateUrl="~/Pages/Help.aspx"><i class="bi bi-life-preserver"></i> Help Center</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterSupportFAQ" runat="server" NavigateUrl="~/Pages/FAQ.aspx"><i class="bi bi-patch-question"></i> FAQ</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterSupportDocumentation" runat="server" NavigateUrl="~/Pages/Documentation.aspx"><i class="bi bi-journal-bookmark"></i> Documentation</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="hlFooterSupportContact" runat="server" NavigateUrl="~/Pages/Contact.aspx"><i class="bi bi-envelope"></i> Contact Support</asp:HyperLink></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 text-center">
+                        <div class="social-icons mb-2">
+                            <asp:HyperLink ID="hlFacebook" runat="server" NavigateUrl="https://www.facebook.com/timothyakwasinyarko" Target="_blank" ToolTip="Follow us on Facebook"><i class="bi bi-facebook"></i></asp:HyperLink>
+                            <asp:HyperLink ID="hlGitHub" runat="server" NavigateUrl="https://github.com/linguistic247" Target="_blank" ToolTip="Visit our GitHub"><i class="bi bi-github"></i></asp:HyperLink>
+                            <asp:HyperLink ID="hlLinkedIn" runat="server" NavigateUrl="https://www.linkedin.com/in/timothy-akwasi-nyarko-22a364357" Target="_blank" ToolTip="Connect on LinkedIn"><i class="bi bi-linkedin"></i></asp:HyperLink>
+                            <asp:HyperLink ID="hlEmail" runat="server" NavigateUrl="mailto:nyarkoakwasi36@gmail.com" ToolTip="Send us an email"><i class="bi bi-envelope"></i></asp:HyperLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom text-center">
+                    <p class="mb-2"><i class="bi bi-heart-fill text-danger"></i> Built to inspire engagement and real learning by <strong>LINGUISTIC</strong> | <i class="bi bi-shield-check"></i> Secure & Reliable</p>
+                    <small class="text-white-50">Powered by ASP.NET | Bootstrap 5 | SQL Server | C#</small>
+                </div>
+            </div>
+        </footer>
+
+        <!-- jQuery fallback -->
+        <script type="text/javascript">
+            (function () {
+                if (typeof jQuery === 'undefined') {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.src = '<%= ResolveUrl("~/scripts/jquery-3.6.0.min.js") %>';
+                    document.head.appendChild(s);
+                }
+            })();
+        </script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Sidebar Toggle Script -->
+        <script type="text/javascript">
+            (function () {
+                var toggleBtn = document.getElementById('sidebarToggle');
+                var sidebar = document.getElementById('sidebar');
+                var mainContent = document.getElementById('mainContentArea');
+
+                if (!toggleBtn || !sidebar) return;
+
+                // Load saved state from localStorage
+                var collapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (collapsed) {
+                    sidebar.classList.add('collapsed');
+                    if (mainContent) mainContent.classList.remove('with-sidebar');
+                }
+
+                // Toggle sidebar on button click
+                toggleBtn.addEventListener('click', function () {
+                    sidebar.classList.toggle('collapsed');
+                    var isCollapsed = sidebar.classList.contains('collapsed');
+                    if (mainContent) {
+                        if (isCollapsed) mainContent.classList.remove('with-sidebar');
+                        else mainContent.classList.add('with-sidebar');
+                    }
+                    localStorage.setItem('sidebarCollapsed', isCollapsed ? 'true' : 'false');
+                });
+
+                // Handle responsive behavior
+                function applyResponsive() {
+                    if (window.innerWidth <= 991.98) {
+                        if (mainContent) mainContent.classList.remove('with-sidebar');
+                    } else {
+                        var isCollapsed = sidebar.classList.contains('collapsed');
+                        if (mainContent) {
+                            if (isCollapsed) mainContent.classList.remove('with-sidebar');
+                            else mainContent.classList.add('with-sidebar');
+                        }
+                    }
+                }
+
+                window.addEventListener('resize', applyResponsive);
+                applyResponsive();
+
+                // Close sidebar on small screens after navigation
+                document.querySelectorAll('.sidebar-custom .nav-link').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        if (window.innerWidth <= 991.98) {
+                            sidebar.classList.add('collapsed');
+                            if (mainContent) mainContent.classList.remove('with-sidebar');
+                        }
+                    });
+                });
+            })();
+        </script>
+
+    </form>
+</body>
+</html>

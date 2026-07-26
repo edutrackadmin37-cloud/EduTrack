@@ -1,0 +1,898 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProductVersion>
+		</ProductVersion>
+		<SchemaVersion>2.0</SchemaVersion>
+		<ProjectGuid>{7915316A-BD11-4448-B7DC-6B0357CEB9C5}</ProjectGuid>
+		<ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>EduTrack</RootNamespace>
+		<AssemblyName>EduTrack</AssemblyName>
+		<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+		<LangVersion>8.0</LangVersion>
+		<UseIISExpress>true</UseIISExpress>
+		<Use64BitIISExpress>
+		</Use64BitIISExpress>
+		<IISExpressSSLPort>44363</IISExpressSSLPort>
+		<IISExpressAnonymousAuthentication>
+		</IISExpressAnonymousAuthentication>
+		<IISExpressWindowsAuthentication>
+		</IISExpressWindowsAuthentication>
+		<IISExpressUseClassicPipelineMode>
+		</IISExpressUseClassicPipelineMode>
+		<UseGlobalApplicationHostFile>
+		</UseGlobalApplicationHostFile>
+		<NuGetPackageImportStamp>
+		</NuGetPackageImportStamp>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\</OutputPath>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- ESSENTIAL REFERENCES ONLY -->
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+			<HintPath>packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+		</Reference>
+		<Reference Include="SendGrid, Version=9.29.3.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+			<HintPath>packages\SendGrid.9.29.3\lib\net452\SendGrid.dll</HintPath>
+		</Reference>
+		<Reference Include="System" />
+		<Reference Include="System.Configuration" />
+		<Reference Include="System.Data" />
+		<Reference Include="System.Data.DataSetExtensions" />
+		<Reference Include="System.Drawing" />
+		<Reference Include="System.EnterpriseServices" />
+		<Reference Include="System.Net" />
+		<Reference Include="System.Net.Http" />
+		<Reference Include="System.Runtime.Serialization" />
+		<Reference Include="System.Web" />
+		<Reference Include="System.Web.Extensions" />
+		<Reference Include="System.Web.Services" />
+		<Reference Include="System.Xml" />
+		<Reference Include="System.Xml.Linq" />
+		<Reference Include="Twilio, Version=7.14.9.0, Culture=neutral, processorArchitecture=MSIL">
+			<HintPath>packages\Twilio.7.14.9\lib\net462\Twilio.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+			<HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="About.aspx" />
+		<Content Include="AcademicCoordinator\Dashboard.aspx" />
+		<Content Include="Admin\AcademicYears.aspx" />
+		<Content Include="Admin\AuditLog.aspx" />
+		<Content Include="Admin\Classes.aspx" />
+		<Content Include="Admin\ClassSubjectTeacher.aspx" />
+		<Content Include="Admin\Dashboard.aspx" />
+		<Content Include="Admin\Departments.aspx" />
+		<Content Include="Admin\LateAlerts.aspx" />
+		<Content Include="Admin\LateReport.aspx" />
+		<Content Include="Admin\Programmes.aspx" />
+		<Content Include="Admin\Schools.aspx" />
+		<Content Include="Admin\Staff.aspx" />
+		<Content Include="Admin\Streams.aspx" />
+		<Content Include="Admin\Subjects.aspx" />
+		<Content Include="Admin\SystemSettings.aspx" />
+		<Content Include="Admin\Users.aspx" />
+		<Content Include="App_Data\ProfilePics\user_11.jpg" />
+		<Content Include="App_Data\ProfilePics\user_7.jpeg" />
+		<Content Include="App_Data\Resources\Screenshot 2026-07-14 005032_639203241794635113.png" />
+		<Content Include="AssistantHeadmaster\Dashboard.aspx" />
+		<Content Include="Auth\ChangePassword.aspx" />
+		<Content Include="Auth\ForgotPassword.aspx" />
+		<Content Include="Auth\Login.aspx" />
+		<Content Include="Auth\Logout.aspx" />
+		<Content Include="Auth\Register.aspx" />
+		<Content Include="Auth\ResetPassword.aspx" />
+		<Content Include="Auth\UserProfile.aspx" />
+		<Content Include="Auth\VerifyEmail.aspx" />
+		<Content Include="Contact.aspx" />
+		<Content Include="Default.aspx" />
+		<Content Include="Documentation.aspx" />
+		<Content Include="Error.aspx" />
+		<Content Include="Error403.aspx" />
+		<Content Include="Error404.aspx" />
+		<Content Include="FAQ.aspx" />
+		<Content Include="Global.asax" />
+		<Content Include="Headmaster\Dashboard.aspx" />
+		<Content Include="Help.aspx" />
+		<Content Include="HOD\Dashboard.aspx" />
+		<Content Include="Image\DVT-0175.jpg" />
+		<Content Include="Image\DVT-0176.JPG" />
+		<Content Include="Image\DVT-0178.JPG" />
+		<Content Include="Image\DVT-0179.JPG" />
+		<Content Include="Image\DVT-0180.JPG" />
+		<Content Include="Image\DVT-0181.JPG" />
+		<Content Include="Image\DVT-0182.JPG" />
+		<Content Include="Image\DVT-0183.jpg" />
+		<Content Include="Image\DVT-0185.jpg" />
+		<Content Include="Notifications.aspx" />
+		<Content Include="Parent\Attendance.aspx" />
+		<Content Include="Parent\ChildPerformance.aspx" />
+		<Content Include="Parent\Dashboard.aspx" />
+		<Content Include="Parent\Notifications.aspx" />
+		<Content Include="Parent\Reports.aspx" />
+		<Content Include="Student\Dashboard.aspx" />
+		<Content Include="Student\Grades.aspx" />
+		<Content Include="Student\Messages.aspx" />
+		<Content Include="Student\MyProjects.aspx" />
+		<Content Include="Student\MyTeams.aspx" />
+		<Content Include="Student\PeerAssessments.aspx" />
+		<Content Include="Student\Reflections.aspx" />
+		<Content Include="Student\Resources.aspx" />
+		<Content Include="Student\Session.aspx" />
+		<Content Include="Student\SubmitProject.aspx" />
+		<Content Include="Student\TakeTest.aspx" />
+		<Content Include="Student\TestResults.aspx" />
+		<Content Include="Teacher\Assignments.aspx" />
+		<Content Include="Teacher\Attendance.aspx" />
+		<Content Include="Teacher\CreateProject.aspx" />
+		<Content Include="Teacher\Dashboard.aspx" />
+		<Content Include="Teacher\Grading.aspx" />
+		<Content Include="Teacher\MyClasses.aspx" />
+		<Content Include="Teacher\ProjectDetails.aspx" />
+		<Content Include="Teacher\Projects.aspx" />
+		<Content Include="Teacher\Questions.aspx" />
+		<Content Include="Teacher\Reports.aspx" />
+		<Content Include="Teacher\Resources.aspx" />
+		<Content Include="Teacher\RubricCriteria.aspx" />
+		<Content Include="Teacher\Rubrics.aspx" />
+		<Content Include="Teacher\Submissions.aspx" />
+		<Content Include="Teacher\Teams.aspx" />
+		<Content Include="Teacher\Tests.aspx" />
+		<Content Include="Web.config" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="About.aspx.cs">
+			<DependentUpon>About.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="About.aspx.designer.cs">
+			<DependentUpon>About.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="AcademicCoordinator\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="AcademicCoordinator\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\AcademicYears.aspx.cs">
+			<DependentUpon>AcademicYears.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\AcademicYears.aspx.designer.cs">
+			<DependentUpon>AcademicYears.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\AuditLog.aspx.cs">
+			<DependentUpon>AuditLog.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\AuditLog.aspx.designer.cs">
+			<DependentUpon>AuditLog.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Classes.aspx.cs">
+			<DependentUpon>Classes.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Classes.aspx.designer.cs">
+			<DependentUpon>Classes.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\ClassSubjectTeacher.aspx.cs">
+			<DependentUpon>ClassSubjectTeacher.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\ClassSubjectTeacher.aspx.designer.cs">
+			<DependentUpon>ClassSubjectTeacher.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Departments.aspx.cs">
+			<DependentUpon>Departments.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Departments.aspx.designer.cs">
+			<DependentUpon>Departments.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\LateAlerts.aspx.cs">
+			<DependentUpon>LateAlerts.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\LateAlerts.aspx.designer.cs">
+			<DependentUpon>LateAlerts.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\LateReport.aspx.cs">
+			<DependentUpon>LateReport.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\LateReport.aspx.designer.cs">
+			<DependentUpon>LateReport.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Programmes.aspx.cs">
+			<DependentUpon>Programmes.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Programmes.aspx.designer.cs">
+			<DependentUpon>Programmes.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Schools.aspx.cs">
+			<DependentUpon>Schools.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Schools.aspx.designer.cs">
+			<DependentUpon>Schools.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Staff.aspx.cs">
+			<DependentUpon>Staff.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Staff.aspx.designer.cs">
+			<DependentUpon>Staff.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Streams.aspx.cs">
+			<DependentUpon>Streams.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Streams.aspx.designer.cs">
+			<DependentUpon>Streams.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Subjects.aspx.cs">
+			<DependentUpon>Subjects.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Subjects.aspx.designer.cs">
+			<DependentUpon>Subjects.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\SystemSettings.aspx.cs">
+			<DependentUpon>SystemSettings.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\SystemSettings.aspx.designer.cs">
+			<DependentUpon>SystemSettings.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Admin\Users.aspx.cs">
+			<DependentUpon>Users.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Admin\Users.aspx.designer.cs">
+			<DependentUpon>Users.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="AssistantHeadmaster\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="AssistantHeadmaster\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\ChangePassword.aspx.cs">
+			<DependentUpon>ChangePassword.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\ChangePassword.aspx.designer.cs">
+			<DependentUpon>ChangePassword.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\ForgotPassword.aspx.cs">
+			<DependentUpon>ForgotPassword.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\ForgotPassword.aspx.designer.cs">
+			<DependentUpon>ForgotPassword.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\Login.aspx.cs">
+			<DependentUpon>Login.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\Login.aspx.designer.cs">
+			<DependentUpon>Login.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\Logout.aspx.cs">
+			<DependentUpon>Logout.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\Logout.aspx.designer.cs">
+			<DependentUpon>Logout.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\Register.aspx.cs">
+			<DependentUpon>Register.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\Register.aspx.designer.cs">
+			<DependentUpon>Register.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\ResetPassword.aspx.cs">
+			<DependentUpon>ResetPassword.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\ResetPassword.aspx.designer.cs">
+			<DependentUpon>ResetPassword.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\UserProfile.aspx.cs">
+			<DependentUpon>UserProfile.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\UserProfile.aspx.designer.cs">
+			<DependentUpon>UserProfile.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Auth\VerifyEmail.aspx.cs">
+			<DependentUpon>VerifyEmail.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Auth\VerifyEmail.aspx.designer.cs">
+			<DependentUpon>VerifyEmail.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="BLL\AcademicCalendarBLL.cs" />
+		<Compile Include="BLL\AcademicYearBLL.cs" />
+		<Compile Include="BLL\ActivityLogBLL.cs" />
+		<Compile Include="BLL\AnalyticsBLL.cs" />
+		<Compile Include="BLL\AnnouncementBLL.cs" />
+		<Compile Include="BLL\ApprovalWorkflowBLL.cs" />
+		<Compile Include="BLL\AssignmentBLL.cs" />
+		<Compile Include="BLL\AttendanceBLL.cs" />
+		<Compile Include="BLL\ClassBLL.cs" />
+		<Compile Include="BLL\ClassSubjectTeacherBLL.cs" />
+		<Compile Include="BLL\ContinuousAssessmentBLL.cs" />
+		<Compile Include="BLL\DepartmentBLL.cs" />
+		<Compile Include="BLL\DiscussionBoardBLL.cs" />
+		<Compile Include="BLL\EmailBLL.cs" />
+		<Compile Include="BLL\EngagementChecklistBLL.cs" />
+		<Compile Include="BLL\GradeBLL.cs" />
+		<Compile Include="BLL\GradingBLL.cs" />
+		<Compile Include="BLL\MessageBLL.cs" />
+		<Compile Include="BLL\NotificationBLL.cs" />
+		<Compile Include="BLL\NotificationPreferenceBLL.cs" />
+		<Compile Include="BLL\ParentBLL.cs" />
+		<Compile Include="BLL\ParentStudentMapBLL.cs" />
+		<Compile Include="BLL\PeerAssessmentBLL.cs" />
+		<Compile Include="BLL\ProgrammeBLL.cs" />
+		<Compile Include="BLL\ProjectBLL.cs" />
+		<Compile Include="BLL\QuestionBLL.cs" />
+		<Compile Include="BLL\ReflectionBLL.cs" />
+		<Compile Include="BLL\ReportBLL.cs" />
+		<Compile Include="BLL\ReportCardBLL.cs" />
+		<Compile Include="BLL\ResourceBLL.cs" />
+		<Compile Include="BLL\RubricBLL.cs" />
+		<Compile Include="BLL\RubricCriterionBLL.cs" />
+		<Compile Include="BLL\RubricLevelBLL.cs" />
+		<Compile Include="BLL\SchoolBLL.cs" />
+		<Compile Include="BLL\SchoolReportBLL.cs" />
+		<Compile Include="BLL\SchoolYearBLL.cs" />
+		<Compile Include="BLL\SelfAssessmentBLL.cs" />
+		<Compile Include="BLL\SemesterBLL.cs" />
+		<Compile Include="BLL\SettingsBLL.cs" />
+		<Compile Include="BLL\SmsBLL.cs" />
+		<Compile Include="BLL\StaffBLL.cs" />
+		<Compile Include="BLL\StreamBLL.cs" />
+		<Compile Include="BLL\StudentBLL.cs" />
+		<Compile Include="BLL\SubjectBLL.cs" />
+		<Compile Include="BLL\SubmissionBLL.cs" />
+		<Compile Include="BLL\TeacherBLL.cs" />
+		<Compile Include="BLL\TeamBLL.cs" />
+		<Compile Include="BLL\TeamChatBLL.cs" />
+		<Compile Include="BLL\TermBLL.cs" />
+		<Compile Include="BLL\TestBLL.cs" />
+		<Compile Include="BLL\TestResultBLL.cs" />
+		<Compile Include="BLL\TimetableBLL.cs" />
+		<Compile Include="BLL\UserBLL.cs" />
+		<Compile Include="Contact.aspx.cs">
+			<DependentUpon>Contact.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Contact.aspx.designer.cs">
+			<DependentUpon>Contact.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="DAL\AcademicCalendarDAL.cs" />
+		<Compile Include="DAL\AcademicYearDAL.cs" />
+		<Compile Include="DAL\ActivityLogDAL.cs" />
+		<Compile Include="DAL\AnalyticsDAL.cs" />
+		<Compile Include="DAL\AnnouncementDAL.cs" />
+		<Compile Include="DAL\ApprovalWorkflowDAL.cs" />
+		<Compile Include="DAL\AssignmentDAL.cs" />
+		<Compile Include="DAL\AttendanceDAL.cs" />
+		<Compile Include="DAL\BaseDAL.cs" />
+		<Compile Include="DAL\ClassDAL.cs" />
+		<Compile Include="DAL\ClassStudentDAL.cs" />
+		<Compile Include="DAL\ClassSubjectTeacherDAL.cs" />
+		<Compile Include="DAL\ContinuousAssessmentDAL.cs" />
+		<Compile Include="DAL\DbConnection.cs" />
+		<Compile Include="DAL\DepartmentDAL.cs" />
+		<Compile Include="DAL\DiscussionBoardDAL.cs" />
+		<Compile Include="DAL\EngagementChecklistDAL.cs" />
+		<Compile Include="DAL\GradeDAL.cs" />
+		<Compile Include="DAL\IndividualContributionDAL.cs" />
+		<Compile Include="DAL\MessageDAL.cs" />
+		<Compile Include="DAL\NotificationDAL.cs" />
+		<Compile Include="DAL\NotificationPreferenceDAL.cs" />
+		<Compile Include="DAL\ParentStudentMapDAL.cs" />
+		<Compile Include="DAL\PeerAssessmentDAL.cs" />
+		<Compile Include="DAL\ProgrammeDAL.cs" />
+		<Compile Include="DAL\ProgrammeSubjectDAL.cs" />
+		<Compile Include="DAL\ProjectDAL.cs" />
+		<Compile Include="DAL\ProjectStatusHistoryDAL.cs" />
+		<Compile Include="DAL\ProjectTeamMemberDAL.cs" />
+		<Compile Include="DAL\QuestionDAL.cs" />
+		<Compile Include="DAL\ReflectionDAL.cs" />
+		<Compile Include="DAL\ReportCardDAL.cs" />
+		<Compile Include="DAL\ReportDAL.cs" />
+		<Compile Include="DAL\ResourceDAL.cs" />
+		<Compile Include="DAL\RubricCriterionDAL.cs" />
+		<Compile Include="DAL\RubricCriterionLevelDAL.cs" />
+		<Compile Include="DAL\RubricDAL.cs" />
+		<Compile Include="DAL\SchoolDAL.cs" />
+		<Compile Include="DAL\SchoolReportDAL.cs" />
+		<Compile Include="DAL\SchoolYearDAL.cs" />
+		<Compile Include="DAL\SelfAssessmentDAL.cs" />
+		<Compile Include="DAL\SemesterDAL.cs" />
+		<Compile Include="DAL\SettingsDAL.cs" />
+		<Compile Include="DAL\StaffDAL.cs" />
+		<Compile Include="DAL\StreamDAL.cs" />
+		<Compile Include="DAL\StudentAnswerDAL.cs" />
+		<Compile Include="DAL\SubjectDAL.cs" />
+		<Compile Include="DAL\SubmissionDAL.cs" />
+		<Compile Include="DAL\TeamAssessmentDAL.cs" />
+		<Compile Include="DAL\TeamChatDAL.cs" />
+		<Compile Include="DAL\TeamDAL.cs" />
+		<Compile Include="DAL\TermDAL.cs" />
+		<Compile Include="DAL\TestDAL.cs" />
+		<Compile Include="DAL\TestResultDAL.cs" />
+		<Compile Include="DAL\TimetableDAL.cs" />
+		<Compile Include="DAL\UserDAL.cs" />
+		<Compile Include="DAL\UserSubjectDAL.cs" />
+		<Compile Include="Default.aspx.cs">
+			<DependentUpon>Default.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Default.aspx.designer.cs">
+			<DependentUpon>Default.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Documentation.aspx.cs">
+			<DependentUpon>Documentation.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Documentation.aspx.designer.cs">
+			<DependentUpon>Documentation.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Error.aspx.cs">
+			<DependentUpon>Error.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Error.aspx.designer.cs">
+			<DependentUpon>Error.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Error403.aspx.cs">
+			<DependentUpon>Error403.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Error403.aspx.designer.cs">
+			<DependentUpon>Error403.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Error404.aspx.cs">
+			<DependentUpon>Error404.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Error404.aspx.designer.cs">
+			<DependentUpon>Error404.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="FAQ.aspx.cs">
+			<DependentUpon>FAQ.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="FAQ.aspx.designer.cs">
+			<DependentUpon>FAQ.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Global.asax.cs">
+			<DependentUpon>Global.asax</DependentUpon>
+		</Compile>
+		<Compile Include="Headmaster\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Headmaster\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Help.aspx.cs">
+			<DependentUpon>Help.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Help.aspx.designer.cs">
+			<DependentUpon>Help.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Helpers\ExportHelper.cs" />
+		<Compile Include="Helpers\FileUploadHelper.cs" />
+		<Compile Include="Helpers\PasswordHelper.cs" />
+		<Compile Include="Helpers\RolePrincipal.cs" />
+		<Compile Include="Helpers\SessionManager.cs" />
+		<Compile Include="Helpers\ValidationHelper.cs" />
+		<Compile Include="HOD\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="HOD\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Models\AcademicCalendar.cs" />
+		<Compile Include="Models\AcademicYear.cs" />
+		<Compile Include="Models\ActivityLog.cs" />
+		<Compile Include="Models\Announcement.cs" />
+		<Compile Include="Models\ApprovalStep.cs" />
+		<Compile Include="Models\ApprovalWorkflow.cs" />
+		<Compile Include="Models\Assignment.cs" />
+		<Compile Include="Models\Attendance.cs" />
+		<Compile Include="Models\Class.cs" />
+		<Compile Include="Models\ClassStudent.cs" />
+		<Compile Include="Models\ClassSubjectTeacher.cs" />
+		<Compile Include="Models\ContinuousAssessment.cs" />
+		<Compile Include="Models\Department.cs" />
+		<Compile Include="Models\DiscussionBoard.cs" />
+		<Compile Include="Models\EngagementChecklist.cs" />
+		<Compile Include="Models\Grade.cs" />
+		<Compile Include="Models\IndividualContribution.cs" />
+		<Compile Include="Models\Message.cs" />
+		<Compile Include="Models\Notification.cs" />
+		<Compile Include="Models\NotificationPreference.cs" />
+		<Compile Include="Models\ParentStudentMap.cs" />
+		<Compile Include="Models\PeerAssessment.cs" />
+		<Compile Include="Models\Programme.cs" />
+		<Compile Include="Models\ProgrammeSubject.cs" />
+		<Compile Include="Models\Project.cs" />
+		<Compile Include="Models\ProjectLifecycle.cs" />
+		<Compile Include="Models\ProjectStatusHistory.cs" />
+		<Compile Include="Models\ProjectTeamMember.cs" />
+		<Compile Include="Models\Question.cs" />
+		<Compile Include="Models\Reflection.cs" />
+		<Compile Include="Models\ReportCard.cs" />
+		<Compile Include="Models\ReportModels.cs" />
+		<Compile Include="Models\Resource.cs" />
+		<Compile Include="Models\Response.cs" />
+		<Compile Include="Models\Rubric.cs" />
+		<Compile Include="Models\RubricCriterion.cs" />
+		<Compile Include="Models\RubricCriterionLevel.cs" />
+		<Compile Include="Models\School.cs" />
+		<Compile Include="Models\SchoolReport.cs" />
+		<Compile Include="Models\SchoolYear.cs" />
+		<Compile Include="Models\SelfAssessment.cs" />
+		<Compile Include="Models\Semester.cs" />
+		<Compile Include="Models\SessionModel.cs" />
+		<Compile Include="Models\SettingsDTO.cs" />
+		<Compile Include="Models\Staff.cs" />
+		<Compile Include="Models\Stream.cs" />
+		<Compile Include="Models\StudentAnswer.cs" />
+		<Compile Include="Models\Subject.cs" />
+		<Compile Include="Models\SubjectSiloedPerformance.cs" />
+		<Compile Include="Models\Submission.cs" />
+		<Compile Include="Models\TeacherPerformanceReport.cs" />
+		<Compile Include="Models\Team.cs" />
+		<Compile Include="Models\TeamAssessment.cs" />
+		<Compile Include="Models\TeamChatMessage.cs" />
+		<Compile Include="Models\Term.cs" />
+		<Compile Include="Models\Test.cs" />
+		<Compile Include="Models\TestResult.cs" />
+		<Compile Include="Models\Timetable.cs" />
+		<Compile Include="Models\TimetableEntry.cs" />
+		<Compile Include="Models\User.cs" />
+		<Compile Include="Models\UserSubject.cs" />
+		<Compile Include="Notifications.aspx.cs">
+			<DependentUpon>Notifications.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Notifications.aspx.designer.cs">
+			<DependentUpon>Notifications.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Parent\Attendance.aspx.cs">
+			<DependentUpon>Attendance.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Parent\Attendance.aspx.designer.cs">
+			<DependentUpon>Attendance.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Parent\ChildPerformance.aspx.cs">
+			<DependentUpon>ChildPerformance.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Parent\ChildPerformance.aspx.designer.cs">
+			<DependentUpon>ChildPerformance.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Parent\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Parent\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Parent\Notifications.aspx.cs">
+			<DependentUpon>Notifications.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Parent\Notifications.aspx.designer.cs">
+			<DependentUpon>Notifications.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Parent\Reports.aspx.cs">
+			<DependentUpon>Reports.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Parent\Reports.aspx.designer.cs">
+			<DependentUpon>Reports.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="Services\EmailService.cs" />
+		<Compile Include="Services\HubtelSmsService.cs" />
+		<Compile Include="Services\IEmailService.cs" />
+		<Compile Include="Services\ISmsService.cs" />
+		<Compile Include="Services\SendGridEmailService.cs" />
+		<Compile Include="Services\SmsServiceStub.cs" />
+		<Compile Include="Services\TwilioSmsService.cs" />
+		<Compile Include="Site.Master.cs">
+			<DependentUpon>Site.Master</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Site.Master.designer.cs">
+			<DependentUpon>Site.Master</DependentUpon>
+		</Compile>
+		<Compile Include="Student\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\Grades.aspx.cs">
+			<DependentUpon>Grades.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\Grades.aspx.designer.cs">
+			<DependentUpon>Grades.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\Messages.aspx.cs">
+			<DependentUpon>Messages.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\Messages.aspx.designer.cs">
+			<DependentUpon>Messages.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\MyProjects.aspx.cs">
+			<DependentUpon>MyProjects.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\MyProjects.aspx.designer.cs">
+			<DependentUpon>MyProjects.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\MyTeams.aspx.cs">
+			<DependentUpon>MyTeams.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\MyTeams.aspx.designer.cs">
+			<DependentUpon>MyTeams.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\PeerAssessments.aspx.cs">
+			<DependentUpon>PeerAssessments.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\PeerAssessments.aspx.designer.cs">
+			<DependentUpon>PeerAssessments.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\Reflections.aspx.cs">
+			<DependentUpon>Reflections.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\Reflections.aspx.designer.cs">
+			<DependentUpon>Reflections.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\Resources.aspx.cs">
+			<DependentUpon>Resources.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\Resources.aspx.designer.cs">
+			<DependentUpon>Resources.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\Session.aspx.cs">
+			<DependentUpon>Session.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\Session.aspx.designer.cs">
+			<DependentUpon>Session.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\SubmitProject.aspx.cs">
+			<DependentUpon>SubmitProject.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\SubmitProject.aspx.designer.cs">
+			<DependentUpon>SubmitProject.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\TakeTest.aspx.cs">
+			<DependentUpon>TakeTest.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\TakeTest.aspx.designer.cs">
+			<DependentUpon>TakeTest.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Student\TestResults.aspx.cs">
+			<DependentUpon>TestResults.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Student\TestResults.aspx.designer.cs">
+			<DependentUpon>TestResults.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Assignments.aspx.cs">
+			<DependentUpon>Assignments.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Assignments.aspx.designer.cs">
+			<DependentUpon>Assignments.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Attendance.aspx.cs">
+			<DependentUpon>Attendance.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Attendance.aspx.designer.cs">
+			<DependentUpon>Attendance.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\CreateProject.aspx.cs">
+			<DependentUpon>CreateProject.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\CreateProject.aspx.designer.cs">
+			<DependentUpon>CreateProject.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Dashboard.aspx.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Dashboard.aspx.designer.cs">
+			<DependentUpon>Dashboard.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Grading.aspx.cs">
+			<DependentUpon>Grading.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Grading.aspx.designer.cs">
+			<DependentUpon>Grading.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\MyClasses.aspx.cs">
+			<DependentUpon>MyClasses.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\MyClasses.aspx.designer.cs">
+			<DependentUpon>MyClasses.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\ProjectDetails.aspx.cs">
+			<DependentUpon>ProjectDetails.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\ProjectDetails.aspx.designer.cs">
+			<DependentUpon>ProjectDetails.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Projects.aspx.cs">
+			<DependentUpon>Projects.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Projects.aspx.designer.cs">
+			<DependentUpon>Projects.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Questions.aspx.cs">
+			<DependentUpon>Questions.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Questions.aspx.designer.cs">
+			<DependentUpon>Questions.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Reports.aspx.cs">
+			<DependentUpon>Reports.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Reports.aspx.designer.cs">
+			<DependentUpon>Reports.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Resources.aspx.cs">
+			<DependentUpon>Resources.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Resources.aspx.designer.cs">
+			<DependentUpon>Resources.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\RubricCriteria.aspx.cs">
+			<DependentUpon>RubricCriteria.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\RubricCriteria.aspx.designer.cs">
+			<DependentUpon>RubricCriteria.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Rubrics.aspx.cs">
+			<DependentUpon>Rubrics.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Rubrics.aspx.designer.cs">
+			<DependentUpon>Rubrics.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Submissions.aspx.cs">
+			<DependentUpon>Submissions.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Submissions.aspx.designer.cs">
+			<DependentUpon>Submissions.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Teams.aspx.cs">
+			<DependentUpon>Teams.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Teams.aspx.designer.cs">
+			<DependentUpon>Teams.aspx</DependentUpon>
+		</Compile>
+		<Compile Include="Teacher\Tests.aspx.cs">
+			<DependentUpon>Tests.aspx</DependentUpon>
+			<SubType>ASPXCodeBehind</SubType>
+		</Compile>
+		<Compile Include="Teacher\Tests.aspx.designer.cs">
+			<DependentUpon>Tests.aspx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="packages.config" />
+		<Content Include="Site.Master" />
+		<None Include="Web.Debug.config">
+			<DependentUpon>Web.config</DependentUpon>
+		</None>
+		<None Include="Web.Release.config">
+			<DependentUpon>Web.config</DependentUpon>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="App_Data\Emails\" />
+		<Folder Include="App_Data\Logs\" />
+	</ItemGroup>
+	<PropertyGroup>
+		<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+		<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+	</PropertyGroup>
+	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+	<Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+	<Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+	<ProjectExtensions>
+		<VisualStudio>
+			<FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+				<WebProjectProperties>
+					<UseIIS>True</UseIIS>
+					<AutoAssignPort>True</AutoAssignPort>
+					<DevelopmentServerPort>64011</DevelopmentServerPort>
+					<DevelopmentServerVPath>/</DevelopmentServerVPath>
+					<IISUrl>https://localhost:44363/</IISUrl>
+					<NTLMAuthentication>False</NTLMAuthentication>
+					<UseCustomServer>False</UseCustomServer>
+					<CustomServerUrl>
+					</CustomServerUrl>
+					<SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+				</WebProjectProperties>
+			</FlavorProperties>
+		</VisualStudio>
+	</ProjectExtensions>
+	<Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+		<PropertyGroup>
+			<ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+		</PropertyGroup>
+		<Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+	</Target>
+</Project>
