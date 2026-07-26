@@ -30,23 +30,23 @@ Proposal Submitted → Proposal Approved → Team Formation → Planning →
 Research → Implementation → Reflection → Assessment → Reporting → Closure
 
 text
-- Timestamped status changes with user tracking.
+- Timestamped status changes with user tracking via `ProjectStatusHistory` table.
 
 ### 💬 Internal Messaging & Collaboration
-- Team group chat, teacher announcements, subject‑wide discussion boards.
+- Team group chat (`TeamChatMessage`), teacher announcements, subject‑wide discussion boards (`DiscussionBoard`).
 - File sharing (max 10 MB, stored securely).
 
 ### 📊 Engagement & Reflection Tracking
-- Teachers mark engagement indicators (participation, problem‑solving, collaboration).
-- Students submit weekly reflection journals.
+- Teachers mark engagement indicators (`EngagementChecklists`) – participation, problem‑solving, collaboration.
+- Students submit weekly reflection journals (`Reflections`).
 - Export engagement trends (weekly percentages).
 
 ### 📈 Reporting Engine
-- Student report cards (per subject, PDF/Excel/Word).
-- Teacher performance, departmental analytics, project portfolios, parent reports.
+- Student report cards (per subject, PDF/Excel/Word) via `sp_GetStudentSubjectReports`.
+- Teacher performance (`sp_GetTeacherSubjectPerformance`), departmental analytics (`sp_GetDepartmentSubjectAnalytics`), project portfolios (`sp_GetProjectPortfolio`), parent reports.
 
 ### 🏫 Comprehensive Administration
-- School, programme, subject, department, staff, parent, attendance, academic calendar, timetable, curriculum mapping, project monitoring, audit logs, approval workflows.
+- School, programme, subject, department, staff, parent, attendance, academic calendar, timetable, curriculum mapping, project monitoring, audit logs (`ActivityLog`), approval workflows (`ApprovalWorkflow`, `ApprovalStep`).
 
 ---
 
@@ -60,7 +60,7 @@ text
 | **Target Runtime** | v4.0 (.NET 4.x) |
 | **Compilation** | Release mode (`debug="false"`) |
 | **Architecture** | Strict Layered Architecture: UI → BLL → DAL → Database |
-| **Database** | SQL Server 2022, ADO.NET, Stored Procedures |
+| **Database** | SQL Server 2022, ADO.NET, Stored Procedures (40+ procs) |
 | **Authentication** | Forms Authentication with RolePrincipal |
 | **Email / SMS** | SendGrid (email), Twilio/Hubtel (SMS) with stubs for local development |
 | **Security** | PBKDF2‑SHA256 password hashing (10,000+ iterations, 16‑byte salt, 32‑byte hash) |
@@ -89,7 +89,9 @@ EduTrack/
 │ │ ├── Logs/
 │ │ │ ├── email_log.txt
 │ │ │ └── sms_log.txt
-│ │ └── Uploads/
+│ │ ├── Uploads/
+│ │ ├── Resources/
+│ │ └── Submissions/
 │ ├── Auth/ # Login, Register, Password reset, Profile
 │ ├── Admin/ # Full admin CRUD (users, classes, subjects, etc.)
 │ ├── Teacher/ # Teacher dashboard, projects, grading, attendance, tests
@@ -110,7 +112,7 @@ EduTrack/
 │ ├── Default.aspx
 │ └── ...
 ├── Database/
-│ ├── Schema.sql # Full database script (tables, procs, views, seed data)
+│ ├── Schema.sql # Complete database script (37+ tables, 40+ procs, views, functions, seed data)
 │ └── StoredProcedures.sql
 └── Documentation/
 ├── SystemArchitecture.md
@@ -133,22 +135,51 @@ text
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/linguistic247/EduTrack.git
+git clone https://github.com/edutrackadmin37-cloud/EduTrack.git
 cd EduTrack
 2. Create the Database
 Open SQL Server Management Studio (or sqlcmd), connect to your SQL Server, and run the complete database script:
 
 sql
--- The script is located at:
+-- The complete script is located at:
 -- Database/Schema.sql
--- OR use the single script provided in the project root.
-This script will:
+This single script (Schema.sql) will:
 
 Drop any existing EduTrack_DB database.
 
-Create all tables (37+), stored procedures, functions, and views.
+Create all tables (37+ tables) including:
 
-Seed the GES curriculum, departments, programmes, subjects, and a default admin user.
+Core: Users, Departments, Schools, Staff, Classes, Subjects, Programmes
+
+PBL: Projects, ProjectTeams, ProjectTeamMembers, ProjectStatusHistory
+
+Assessment: Rubrics, RubricCriteria, RubricCriterionLevels, TeamAssessments, IndividualContributions
+
+Academic: AcademicYears, Semesters, Terms, Streams, ClassSubjectTeacher, ClassStudent
+
+Assignments & Tests: Assignments, Submissions, Grades, Tests, Questions, StudentAnswers, TestResults
+
+Engagement: EngagementChecklists, Reflections
+
+Communication: Messages, Notifications, Announcements, TeamChatMessage, DiscussionBoard
+
+Administration: ActivityLog, SystemSettings, ApprovalWorkflow, ApprovalStep
+
+Extended: AcademicCalendar, ContinuousAssessment, NotificationPreference, PeerAssessment, SelfAssessment, Timetable, TimetableEntry, ParentStudentMap, UserSubjects
+
+Create helper functions: fn_GetGradeLetter(), fn_GetRemark()
+
+Create 40+ stored procedures for CRUD operations and reporting, including:
+
+Core CRUD: sp_GetUserById, sp_CreateUser, sp_UpdateUser, sp_SoftDeleteUser, and similar for all entities
+
+Reporting: sp_GetStudentSubjectReports, sp_GetTeacherSubjectPerformance, sp_GetDepartmentSubjectAnalytics, sp_GetProjectPortfolio, sp_GetTeamPortfolios, sp_GetParentAttendanceSummary
+
+Analytics: sp_GetSchoolPerformanceOverview, sp_GetSchoolOverallPerformance, sp_GetDepartmentGradingConsistency
+
+Create views including vw_StudentSubjectPerformance for subject-siloed analytics.
+
+Seed the GES curriculum (7 departments, 8 programmes, 33 subjects), default school, and admin user.
 
 3. Update Web.config
 Connection Strings: Update Data Source, Initial Catalog, and credentials if needed.
@@ -177,7 +208,7 @@ Log in with the seeded admin credentials:
 text
 Email:    edutrackadmin37@gmail.com
 Password: Nt5437132#37
-Note: The password hash was generated using PBKDF2‑SHA256; if you need to reset it, use the built‑in password reset flow or generate a new hash using PasswordHelper.HashPassword().
+Note: The password hash was generated using PBKDF2‑SHA256 with 10,000 iterations, 16‑byte salt, and 32‑byte hash. If you need to reset it, use the built‑in password reset flow or generate a new hash using PasswordHelper.HashPassword().
 
 🔧 Configuration
 Web.config Sections
@@ -189,24 +220,30 @@ Section	Description
 <runtime>	Assembly binding redirects for System.Runtime.CompilerServices.Unsafe
 <system.webServer>	Security headers, caching
 📊 Database Schema Highlights
-Users: Supports 8 roles (SystemAdministrator, Headmaster, AssistantHeadmaster, AcademicCoordinator, HOD, Teacher, Student, Parent).
+37+ Tables covering the entire PBL ecosystem.
+
+8 User Roles: SystemAdministrator, Headmaster, AssistantHeadmaster, AcademicCoordinator, HOD, Teacher, Student, Parent.
 
 Subject‑siloed analytics: The vw_StudentSubjectPerformance view and stored procedures like sp_GetStudentSubjectReports prevent cross‑subject aggregation.
 
-PBL Lifecycle: Projects have a Status field with 11 stages; ProjectStatusHistory tracks all transitions.
+PBL Lifecycle: Projects have a Status field with 11 stages; ProjectStatusHistory tracks all transitions with user tracking.
 
-Team & Individual Grading: TeamAssessments and IndividualContributions tables store separate scores.
+Team & Individual Grading: TeamAssessments and IndividualContributions tables store separate scores. TeamAssessments has a 1:1 relationship with teams; IndividualContributions links to TeamAssessments for per-student scoring.
 
-Engagement & Reflection: EngagementChecklists and Reflections tables track student engagement and journals.
+Engagement & Reflection: EngagementChecklists (6 metrics per student per project per week) and Reflections (weekly journals) tables track student engagement.
+
+Complete Test System: Tests, Questions, StudentAnswers, and TestResults tables support MCQ, Text, True/False, and Fill-in question types.
+
+Approval Workflow: ApprovalWorkflow and ApprovalStep tables support multi-step approval processes with role-based routing.
 
 All tables include CreatedAt, UpdatedAt, and IsDeleted for audit and soft‑delete.
 
 🧪 Testing
 The system includes a comprehensive suite of pages for each role. To test all features:
 
-Login as admin – create a school, programmes, subjects, academic years, streams, classes, and staff.
+Login as admin (edutrackadmin37@gmail.com / Nt5437132#37) – create a school, programmes, subjects, academic years, streams, classes, and staff.
 
-Login as teacher – create projects, assignments, rubrics, tests, grade submissions, mark attendance.
+Login as teacher – create projects, assignments, rubrics, tests, grade submissions, mark attendance, create engagement checklists.
 
 Login as student – join teams, submit work, take tests, write reflections.
 
@@ -272,7 +309,7 @@ Email: nyarkoakwasi36@gmail.com
 
 Phone: +233 54 371 3237
 
-GitHub: linguistic247
+GitHub: edutrackadmin37-cloud
 
 LinkedIn: Timothy Akwasi Nyarko
 
